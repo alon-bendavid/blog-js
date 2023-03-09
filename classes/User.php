@@ -75,25 +75,6 @@ class User
             return false;
         }
     }
-    /////////////////////////////// wituhout hashed password just for testing 
-
-
-
-    // public function login($login, $password)
-    // {
-    //     $stmt = $this->conn->prepare("SELECT id, password FROM utilisateurs WHERE login = ?");
-    //     $stmt->bind_param("s", $login);
-    //     $stmt->execute();
-    //     $stmt->bind_result($id, $password);
-    //     $stmt->fetch();
-    //     if ($password == $password) {
-    //         $this->id = $id;
-    //         $_SESSION['user'] = $login;
-    //         return $id;
-    //     } else {
-    //         return false;
-    //     }
-    // }
 
 
     // disconnect user---------------------------------------------------------------------------------------------------------------------
@@ -113,12 +94,18 @@ class User
         session_destroy();
     }
     // update the user information-----------------------------------------------------------------------------------------------------------
-    public function update($login, $password,  $firstname, $lastname)
+    public function update($newLogin, $newPassword)
     {
-        $stmt = $this->conn->prepare("UPDATE utilisateurs SET login = ?, password = ?,  firstname = ?, lastname = ? WHERE login = ?");
-        $stmt->bind_param("sssss", $login, $password,  $firstname, $lastname, $this->login);
+        // if ($repass != $newPassword) {
+        //     echo "password miss-match";
+        //     return false;
+        // } else {
+
+        $stmt = $this->conn->prepare("UPDATE utilisateurs SET login = ?, password = ? WHERE login = ?");
+        $stmt->bind_param("sss", $newLogin, $newPassword, $this->login);
         $stmt->execute();
         return $stmt->affected_rows;
+        // }
     }
     // check if user is connected------------------------------------------------------------------------------------------------------------
     public function isConnected()

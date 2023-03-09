@@ -37,7 +37,7 @@ require_once("classes/User.php");
             <?php
             } ?>
             <?php if (isset($_SESSION["user"])) { ?>
-
+                <a href="profil.php">Edit profile</a>
                 <a href="clicker.php">clicker</a>
             <?php
             } ?>

@@ -1,13 +1,6 @@
 
 
 
-// alert("signup");
-const welcome = document.getElementById("welcome");
-const closeWel = document.getElementById("closeWel");
-closeWel.addEventListener("click",()=>{
-  welcome.style.display = "none";
-
-})
 
 
 
@@ -24,7 +17,7 @@ closeWel.addEventListener("click",()=>{
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const payLoad = new FormData(form);
-      
+     console.log("working"); 
       for (item of payLoad) {
         console.log(item[0], item[1]);    
       }  
