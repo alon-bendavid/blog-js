@@ -3,13 +3,19 @@ class Article
 {
     private $id;
     private $text;
+    private $picture;
     private $id_utilisateur;
     private $date;
     private $conn;
 
 
-    public function __construct()
+    public function __construct($id, $text, $picture, $id_utilisateur)
     {
+        $this->id = $id;
+        $this->text = $text;
+        $this->picture = $picture;
+        $this->id_utilisateur = $id_utilisateur;
+        $this->date = date('Y-m-d H:i:s');
         $this->conn = new mysqli("localhost", "root", "", "blog-js");
 
         // $this->conn = new mysqli("localhost", "ToDoList123", "1M2y5es3~", "ben-david-alon_to_do_list");
@@ -47,7 +53,7 @@ class Article
             return false;
         }
     }
-    public function createArticle($text, $picture, $id_utilisateur)
+    public function createArticle()
     {
         // Assume that $mysqli is a mysqli object representing your database connection
 
@@ -55,17 +61,17 @@ class Article
         $stmt = $this->conn->prepare("INSERT INTO articles (text, picture, id_utilisateur, date) VALUES (?, ?, ?, ?)");
 
         // Bind the values to the placeholders in the SQL statement
-        $stmt->bind_param("ssis", $text, $picture_path, $id_utilisateur, $date);
+        $stmt->bind_param("ssis", $this->text, $picture_path, $this->id_utilisateur, $this->date);
 
         // Set the values of the variables
-        $date = date('Y-m-d H:i:s'); // current date and time
+        // $date = date('Y-m-d H:i:s'); // current date and time
 
         // Upload picture to server and set the picture path to the uploaded file
-        if (isset($picture) && $picture['error'] == 0) {
-            $picture_name = $picture['name'];
-            $picture_tmp_name = $picture['tmp_name'];
-            $picture_size = $picture['size'];
-            $picture_type = $picture['type'];
+        if (isset($this->picture) && $this->picture['error'] == 0) {
+            $picture_name = $this->picture['name'];
+            $picture_tmp_name = $this->picture['tmp_name'];
+            $picture_size = $this->picture['size'];
+            $picture_type = $this->picture['type'];
 
             // Upload picture to server
             move_uploaded_file($picture_tmp_name, 'uploads/' . $picture_name);
@@ -90,5 +96,22 @@ class Article
         // Close the statement and database connection
         $stmt->close();
         $this->conn->close();
+    }
+
+    ////////////////////////////////////////////////////////////
+    // need to fix it to be able to fetch the articls
+    ///////////////////////////////////////////////////////////////
+    public function getAllArticles()
+    {
+        $articles = array();
+        $stmt = $this->conn->prepare("SELECT id, text, picture, id_utilisateur, date FROM articles");
+        $stmt->execute();
+        $stmt->bind_result($id, $text, $picture, $id_utilisateur, $date);
+        while ($stmt->fetch()) {
+            $article = new Article($id, $text, $picture, $id_utilisateur, $date);
+            $articles[] = $article;
+        }
+        $stmt->close();
+        return $articles;
     }
 }
