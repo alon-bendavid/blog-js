@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once("classes/Article.php");
 require_once("classes/User.php");
 
 ?>
@@ -39,6 +39,8 @@ require_once("classes/User.php");
             <?php if (isset($_SESSION["user"])) { ?>
                 <a href="profil.php">Edit profile</a>
                 <a href="clicker.php">clicker</a>
+                <a href="write_article.php">Add an article</a>
+
             <?php
             } ?>
 
