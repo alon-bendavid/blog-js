@@ -2,8 +2,9 @@
 require_once("header.php");
 if (isset($_POST["articleSub"])) {
     $article = new Article(null, $_POST['text'], $_FILES['picture'], $_POST['id_utilisateur']);
+    $article->createArticle();
     $allArticles = $article->getAllArticles();
-    var_dump($allArticles[0]);
+    var_dump($allArticles);
 }
 
 ?>

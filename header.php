@@ -30,6 +30,7 @@ require_once("classes/User.php");
             <a href="index.php">
                 <h1>Blog</h1>
             </a>
+            <a href="articles.php">Articles</a>
             <?php if (!isset($_SESSION["user"])) { ?>
                 <a href="connect.php">connect</a>
                 <a href="signup.php">Sign Up</a>

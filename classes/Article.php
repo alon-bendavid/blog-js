@@ -6,7 +6,7 @@ class Article
     private $picture;
     private $id_utilisateur;
     private $date;
-    private $conn;
+    public $conn;
 
 
     public function __construct($id, $text, $picture, $id_utilisateur)
@@ -101,17 +101,16 @@ class Article
     ////////////////////////////////////////////////////////////
     // need to fix it to be able to fetch the articls
     ///////////////////////////////////////////////////////////////
-    public function getAllArticles()
+    public  function getAllArticles()
     {
-        $articles = array();
         $stmt = $this->conn->prepare("SELECT id, text, picture, id_utilisateur, date FROM articles");
         $stmt->execute();
-        $stmt->bind_result($id, $text, $picture, $id_utilisateur, $date);
-        while ($stmt->fetch()) {
-            $article = new Article($id, $text, $picture, $id_utilisateur, $date);
-            $articles[] = $article;
+        $result = $stmt->get_result();
+        $data = array();
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
         }
         $stmt->close();
-        return $articles;
+        return $data;
     }
 }
