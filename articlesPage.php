@@ -1,8 +1,10 @@
 <?php
 require_once("header.php");
-$article = new Article(null, null, null, null);
+$page = $_GET["page"];
+var_dump($page);
+$article = new Article(null, null, null, null, null);
 // $article->createArticle();
-$allArticles = $article->getArticles();
+$allArticles = $article->getArticles($page);
 foreach ($allArticles as $article) { ?>
     <a href="chosen_article.php?article= <?php echo $article["id"] ?>"><?php foreach ($article as $detail) {
                                                                             echo $detail . " ";
@@ -14,14 +16,24 @@ foreach ($allArticles as $article) { ?>
 ?>
 
 <body>
-    <form method="get" id="pageBtns">
+    <div>
+        <button>
+            <a id="pageDown" href="articlesPage.php?page=2">page down</a>
+        </button>
+        <button>
+            <a id="pageUp" href="">page up</a>
+        </button>
+
+    </div>
+
+    <!-- <form method="get" id="pageBtns">
         <button name="page" type="submit" id="pageUp">Page up >></button>
         <input id="pageN" type hidden name="pageNumber"></input>
 
         <button name="page" type="submit" id="pageDown">
             << Page down</button>
 
-    </form>
+    </form> -->
 
 
 

@@ -1,41 +1,20 @@
-// console.log("check");
 const pageUp = document.getElementById("pageUp");
 const pageDown = document.getElementById("pageDown");
-let pageNumber = document.getElementById("pageN");
-let page = 0;
-pageUp.addEventListener("click" ,(e)=>{
-    // await fetch("")
-    e.preventDefault();
-    page += 1;
-    // console.log(page);
-    pageNumber.value = page;
-    console.log(pageNumber.value);
-})
-pageDown.addEventListener("click" , (e)=>{
-    e.preventDefault();
-    page -= 1;
-    pageNumber.value = page;
-    console.log(pageNumber.value);
+let page = getQueryParam("page") || 1; // read "page" value from URL or default to 1
+pageUp.href = "articlesPage.php?page=" + (parseInt(page) + 1); // set initial href values
+pageDown.href = "articlesPage.php?page=" + (parseInt(page) - 1);
 
-})
-let getJsonByKey = async (key) => {
-    // create an empty array as result
-    let result = [];
-    // fetch the php data using the given 'key' as keyword
-    let response = await fetch('/php/articles.php?pageNumber=' + key);
+pageUp.addEventListener("click" ,()=>{
+  page = parseInt(page) + 1;
+  pageUp.href = "articlesPage.php?page=" + page;
+});
 
-    // if the response is ok / no errors
-    if (response.ok) {
-      // update the result with the json data
-      result = await response.json();
-    }
-    
+pageDown.addEventListener("click" , ()=>{
+  page = parseInt(page) - 1;
+  pageDown.href = "articlesPage.php?page=" + page;
+});
 
-    console.log('key = ', key);
-    console.log('result = ', result);
-    
-    // return the result 
-    // the result will be empty if no response was found
-    return result;
-
-  };
+function getQueryParam(name) { // helper function to read query parameters from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+}

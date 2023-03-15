@@ -3,16 +3,18 @@ class Article
 {
     public $id;
     private $text;
+    private $category;
     private $picture;
     private $id_utilisateur;
     private $date;
     public $conn;
 
 
-    public function __construct($id, $text, $picture, $id_utilisateur)
+    public function __construct($id, $text, $category, $picture, $id_utilisateur)
     {
         $this->id = $id;
         $this->text = $text;
+        $this->category = $category;
         $this->picture = $picture;
         $this->id_utilisateur = $id_utilisateur;
         $this->date = date('Y-m-d H:i:s');
@@ -58,10 +60,10 @@ class Article
         // Assume that $mysqli is a mysqli object representing your database connection
 
         // Prepare the SQL statement with placeholders for the values to be inserted
-        $stmt = $this->conn->prepare("INSERT INTO articles (text, picture, id_utilisateur, date) VALUES (?, ?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO articles (text,category, picture, id_utilisateur, date) VALUES (?,?, ?, ?, ?)");
 
         // Bind the values to the placeholders in the SQL statement
-        $stmt->bind_param("ssis", $this->text, $picture_path, $this->id_utilisateur, $this->date);
+        $stmt->bind_param("sssis", $this->text, $this->category, $picture_path, $this->id_utilisateur, $this->date);
 
         // Set the values of the variables
         // $date = date('Y-m-d H:i:s'); // current date and time
@@ -101,9 +103,10 @@ class Article
     ////////////////////////////////////////////////////////////
     // need to fix it to be able to fetch the articls
     ///////////////////////////////////////////////////////////////
-    public  function getArticles()
+    public  function getArticles($offset)
     {
-        $stmt = $this->conn->prepare("SELECT id, text, picture, id_utilisateur, date FROM articles LIMIT 5 , 2 ");
+        $offset = $offset * 5;
+        $stmt = $this->conn->prepare("SELECT id, text,category, picture, id_utilisateur, date FROM articles LIMIT $offset , 5 ");
         $stmt->execute();
         $result = $stmt->get_result();
         $data = array();

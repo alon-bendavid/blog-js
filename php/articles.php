@@ -5,8 +5,8 @@ require_once("../classes/Article.php");
 var_dump($_GET["pageNumber"]);
 if (isset($_GET["pageUp"]) || isset($_GET["pageDown"])) {
 
-    $article = new Article(null, null, null, null);
+    $article = new Article(null, null, null, null, null);
     // $article->createArticle();
-    $allArticles = $article->getArticles();
+    $allArticles = $article->getArticles($page);
     var_dump($allArticles);
 }

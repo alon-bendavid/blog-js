@@ -40,7 +40,7 @@ require_once("classes/User.php");
                 <h1>Blog</h1>
             </a>
             <a href="php\articles.php">Articles</a>
-            <a href="articlesPage.php">Articles page</a>
+            <a href="articlesPage.php?page=1">Articles page</a>
 
             <?php if (!isset($_SESSION["user"])) { ?>
                 <a href="connect.php">connect</a>
