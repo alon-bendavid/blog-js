@@ -21,6 +21,15 @@ require_once("classes/User.php");
     if ($_SERVER['REQUEST_URI'] == "/blog-js/signup.php") { ?>
         <script defer src="./js/script.js"></script>
     <?php } ?>
+
+    <?php if ($_SERVER['REQUEST_URI'] == "/blog-js/articlesPage.php") {  ?>
+        <!-- <script defer src="./js/articles.js"></script> -->
+    <?php } else { ?>
+        <!-- <script defer src="./js/articles.js"></script> -->
+
+    <?php  } ?>
+    <script defer src="./js/articles.js"></script>
+
 </head>
 <header>
     <nav>
@@ -30,7 +39,9 @@ require_once("classes/User.php");
             <a href="index.php">
                 <h1>Blog</h1>
             </a>
-            <a href="articles.php">Articles</a>
+            <a href="php\articles.php">Articles</a>
+            <a href="articlesPage.php">Articles page</a>
+
             <?php if (!isset($_SESSION["user"])) { ?>
                 <a href="connect.php">connect</a>
                 <a href="signup.php">Sign Up</a>

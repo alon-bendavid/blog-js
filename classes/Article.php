@@ -1,7 +1,7 @@
 <?php
 class Article
 {
-    private $id;
+    public $id;
     private $text;
     private $picture;
     private $id_utilisateur;
@@ -101,9 +101,9 @@ class Article
     ////////////////////////////////////////////////////////////
     // need to fix it to be able to fetch the articls
     ///////////////////////////////////////////////////////////////
-    public  function getAllArticles()
+    public  function getArticles()
     {
-        $stmt = $this->conn->prepare("SELECT id, text, picture, id_utilisateur, date FROM articles");
+        $stmt = $this->conn->prepare("SELECT id, text, picture, id_utilisateur, date FROM articles LIMIT 5 , 2 ");
         $stmt->execute();
         $result = $stmt->get_result();
         $data = array();
@@ -111,6 +111,7 @@ class Article
             $data[] = $row;
         }
         $stmt->close();
+        // return json_encode($data);
         return $data;
     }
 }
