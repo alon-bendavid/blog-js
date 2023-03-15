@@ -39,8 +39,8 @@ require_once("classes/User.php");
             <a href="index.php">
                 <h1>Blog</h1>
             </a>
-            <a href="php\articles.php">Articles</a>
-            <a href="articlesPage.php?page=1">Articles page</a>
+            <!-- <a href="php\articles.php">Articles</a> -->
+            <a href="articlesPage.php?page=0">Articles page</a>
 
             <?php if (!isset($_SESSION["user"])) { ?>
                 <a href="connect.php">connect</a>
@@ -50,7 +50,6 @@ require_once("classes/User.php");
             } ?>
             <?php if (isset($_SESSION["user"])) { ?>
                 <a href="profil.php">Edit profile</a>
-                <a href="clicker.php">clicker</a>
                 <a href="write_article.php">Add an article</a>
 
             <?php

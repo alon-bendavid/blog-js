@@ -1,14 +1,19 @@
 <?php
 require_once("header.php");
+//fetch all articles 
 $page = $_GET["page"];
 var_dump($page);
 $article = new Article(null, null, null, null, null);
 // $article->createArticle();
 $allArticles = $article->getArticles($page);
+
 foreach ($allArticles as $article) { ?>
-    <a href="chosen_article.php?article= <?php echo $article["id"] ?>"><?php foreach ($article as $detail) {
-                                                                            echo $detail . " ";
+    <a href="chosen_article.php?article= <?php echo $article["id"] ?>"><?php {
+                                                                            echo $article["text"] . '<img src="' . $article["picture"] . '" alt="">' . " ";
                                                                         } ?></a>
+    <!-- <a href="chosen_article.php?article= <?php echo $article["id"] ?>"><?php foreach ($article as $detail) {
+                                                                                var_dump($detail)  . " ";
+                                                                            } ?></a> -->
 
 <?php
 }
