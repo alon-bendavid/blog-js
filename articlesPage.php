@@ -3,7 +3,7 @@ require_once("header.php");
 //fetch all articles 
 $page = $_GET["page"];
 var_dump($page);
-$article = new Article(null, null, null, null, null);
+$article = new Article(null, null, null, null, null, null);
 // $article->createArticle();
 $allArticles = $article->getArticles($page);
 

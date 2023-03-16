@@ -1,7 +1,7 @@
 <?php
 require_once("header.php");
 if (isset($_POST["articleSub"])) {
-    $article = new Article(null, $_POST['text'], $_POST['category'], $_FILES['picture'], $_POST['id_utilisateur']);
+    $article = new Article(null, $_POST['title'], $_POST['text'], $_POST['category'], $_FILES['picture'], $_POST['id_utilisateur']);
     $article->createArticle();
 }
 
@@ -9,6 +9,10 @@ if (isset($_POST["articleSub"])) {
 
 <body>
     <form action="" method="POST" enctype="multipart/form-data">
+
+        <label for="title">Article title:</label>
+        <input type="text" name="title" id="title" required>
+
         <label for="text">Text:</label>
         <input type="text" name="text" id="text" required>
 
